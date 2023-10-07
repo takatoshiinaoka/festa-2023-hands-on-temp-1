@@ -1,0 +1,19 @@
+name: test
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.7.16
+      - name: install dependencies
+        run: pip install boto3 pytest
+      - name: localstack up
+        run: make localstack-up
+      - name: test
+        run: make test-unit
